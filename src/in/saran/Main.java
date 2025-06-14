@@ -17,18 +17,20 @@ public class Main {
         int remainingFuel =0;
         int fuelNeeded = 0;
         try {
-            File f = new File("/Users/saranjith/Desktop/adventofcode/step1/in/saran/mySanta/input.txt");
-            BufferedReader b = new BufferedReader(new FileReader(f));
-            String readLine = "";
-            while ((readLine = b.readLine()) != null) {
-                remainingFuel = retFuel(readLine);
-                fuelNeeded+=remainingFuel;
-                while (remainingFuel>=9) {
-                    remainingFuel = retFuel(String.valueOf(remainingFuel));
-                    fuelNeeded+=remainingFuel;
+            String path = args.length > 0 ? args[0] : "input.txt";
+            File f = new File(path);
+            try (BufferedReader b = new BufferedReader(new FileReader(f))) {
+                String readLine;
+                while ((readLine = b.readLine()) != null) {
+                    remainingFuel = retFuel(readLine);
+                    fuelNeeded += remainingFuel;
+                    while (remainingFuel >= 9) {
+                        remainingFuel = retFuel(String.valueOf(remainingFuel));
+                        fuelNeeded += remainingFuel;
+                    }
                 }
             }
-            System.out.println("Fuel Needed "+fuelNeeded);
+            System.out.println("Fuel Needed " + fuelNeeded);
 
         } catch (IOException e) {
             e.printStackTrace();
